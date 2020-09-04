@@ -80,7 +80,7 @@ To create an instance of `Watson Speech to Text` service,
 
 1. Record the service `API key` and `URL`.
 
-    !["watson-voicebot-architecture"](docs/images/watson-speech2text01.png)
+    !["watson-speech2text"](docs/images/watson-speech2text01.png)
 
 
 ### Step 3 - Setup Development Environment
