@@ -1,0 +1,44 @@
+I like to order a Big Mac, please.
+I like to have a Big Mac, please.
+I like to order two Big Mac, please.
+I like to have three Big Mac, please.
+May I order a Big Mac, please?
+May I have ten Big Mac, please?
+One Big Mac to go.
+Have three Big Mac meals.
+
+I like to order a McDouble, please.
+I like to have a McDouble, please.
+I like to order two McDouble, please.
+I like to have three McDouble, please.
+May I order a McDouble, please?
+May I have ten McDouble, please?
+One McDoublec to go.
+Have three McDouble meals.
+
+I like to order a McFlurry with M&M'S Candies, please.
+I like to have a McFlurry with M&M'S Candies, please.
+I like to order two McFlurry with M&M'S Candies, please.
+I like to have three McFlurry with M&M'S Candies, please.
+May I order a McFlurry with M&M'S Candies, please?
+May I have ten McFlurry with M&M'S® Candies, please?
+One McFlurry with M&M'S Candies to go.
+Have three McFlurry with M&M'S Candies.
+
+I like to order a McFlurry with OREO Cookies, please.
+I like to have a McFlurry with OREO Cookies, please.
+I like to order two McFlurry with OREO Cookies, please.
+I like to have three McFlurry with OREO Cookies, please.
+May I order a McFlurry with OREO Cookies, please?
+May I have ten McFlurry with OREO Cookies, please?
+One McFlurry with OREO Cookies to go.
+Have three McFlurry with OREO Cookies.
+
+I like to order a McFlurry, please.
+I like to have a McFlurry, please.
+I like to order two McFlurry, please.
+I like to have three McFlurry, please.
+May I order a McFlurry, please?
+May I have ten McFlurry, please?
+One McFlurry to go.
+Have three McFlurry.

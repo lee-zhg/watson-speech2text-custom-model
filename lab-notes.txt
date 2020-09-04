@@ -1,0 +1,207 @@
+
+0) pre-set
+
+export apikey=W0UsAxM5-meL6Xbm2Op9GPSjzL3NLLDVUGrI-jyUSDdw
+export url=https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/ba85aae8-3bc9-4da4-9b3f-e9b18d0198de
+
+
+2) To create a custom language model
+
+curl -X POST -u "apikey:$apikey" --header "Content-Type: application/json" --data "{\"name\": \"Example model\",   \"base_model_name\": \"en-US_BroadbandModel\",   \"description\": \"Example custom language model\"}" "$url/v1/customizations"
+
+Result
+
+{"customization_id": "ecdf5106-38c2-4103-afa6-c07f95a5f89a"}
+
+2.1) To record the new customization_id
+
+export customization_id=ecdf5106-38c2-4103-afa6-c07f95a5f89a
+
+
+3) To Add a corpus to the custom language model
+
+curl -X POST -u "apikey:$apikey" --data-binary @mcdonald_menu.txt "$url/v1/customizations/$customization_id/corpora/mcdonald_menu"
+
+Result
+
+{}
+
+
+4) To monitor the add corpus request
+
+curl -X GET -u "apikey:$apikey" "$url/v1/customizations/$customization_id/corpora/"
+curl -X GET -u "apikey:$apikey" "$url/v1/customizations/$customization_id/corpora/mcdonald_menu"
+
+Result
+
+{
+   "out_of_vocabulary_words": 3,
+   "total_words": 293,
+   "name": "mcdonald_menu",
+   "status": "analyzed"
+}
+
+
+5) To add words to the custom language model
+
+6) To train the custom language model
+
+curl -X POST -u "apikey:$apikey" "$url/v1/customizations/$customization_id/train"
+curl -X POST -u "apikey:$apikey" "$url/v1/customizations/$customization_id/train?customization_weight=0.5"
+
+Result
+
+{}
+
+7) To monitoring the train model request
+
+curl -X GET -u "apikey:$apikey" "$url/v1/customizations/$customization_id"
+
+Result
+
+{
+   "owner": "ba85aae8-3bc9-4da4-9b3f-e9b18d0198de",
+   "base_model_name": "en-US_BroadbandModel",
+   "customization_id": "ecdf5106-38c2-4103-afa6-c07f95a5f89a",
+   "dialect": "en-US",
+   "versions": ["en-US_BroadbandModel.v2020-01-16"],
+   "created": "2020-08-14T21:03:04.923Z",
+   "name": "Example model",
+   "description": "Example custom language model",
+   "progress": 0,
+   "language": "en-US",
+   "updated": "2020-08-14T22:13:04.974Z",
+   "status": "training"
+}
+
+{
+   "owner": "ba85aae8-3bc9-4da4-9b3f-e9b18d0198de",
+   "base_model_name": "en-US_BroadbandModel",
+   "customization_id": "ecdf5106-38c2-4103-afa6-c07f95a5f89a",
+   "dialect": "en-US",
+   "versions": ["en-US_BroadbandModel.v2020-01-16"],
+   "created": "2020-08-14T21:03:04.923Z",
+   "name": "Example model",
+   "description": "Example custom language model",
+   "progress": 100,
+   "language": "en-US",
+   "updated": "2020-08-14T22:06:41.713Z",
+   "status": "available"
+}
+
+
+8) To use a custom language model
+
+curl -X POST -u "apikey:$apikey" --header "Content-Type: audio/flac" --data-binary @audio-test.flac "$url/v1/recognize?language_customization_id=$customization_id"
+
+{
+   "result_index": 0,
+   "results": [
+      {
+         "final": true,
+         "alternatives": [
+            {
+               "transcript": "I like to older of Big Mac please ",
+               "confidence": 0.74
+            }
+         ]
+      },
+      {
+         "final": true,
+         "alternatives": [
+            {
+               "transcript": "May I have couple McFlurry ",
+               "confidence": 0.91
+            }
+         ]
+      }
+   ]
+}
+
+** Out-of-box model
+
+curl -X POST -u "apikey:$apikey" --header "Content-Type: audio/flac" --data-binary @audio-test.flac "$url/v1/recognize?model=en-US_BroadbandModel"
+
+If you omit the model parameter from a request, the service uses the US English broadband model, en-US_BroadbandModel, by default:
+
+curl -X POST -u "apikey:$apikey" --header "Content-Type: audio/flac" --data-binary @audio-test.flac "$url/v1/recognize 
+
+{
+   "result_index": 0,
+   "results": [
+      {
+         "final": true,
+         "alternatives": [
+            {
+               "transcript": "I like to older %HESITATION economic please ",
+               "confidence": 0.54
+            }
+         ]
+      },
+      {
+         "final": true,
+         "alternatives": [
+            {
+               "transcript": "man I have a couple of mac flurry ",
+               "confidence": 0.72
+            }
+         ]
+      }
+   ]
+}
+
+
+===================
+
+* List models
+
+curl -X GET -u "apikey:$apikey" "$url/v1/models"
+
+
+* Get a model
+
+curl -X GET -u "apikey:$apikey" "$url/v1/models/en-US_BroadbandModel"
+
+
+* List custom language models
+
+curl -X GET -u "apikey:$apikey" "$url/v1/customizations"
+
+{"customizations": [{
+   "owner": "ba85aae8-3bc9-4da4-9b3f-e9b18d0198de",
+   "base_model_name": "en-US_BroadbandModel",
+   "customization_id": "ecdf5106-38c2-4103-afa6-c07f95a5f89a",
+   "dialect": "en-US",
+   "versions": ["en-US_BroadbandModel.v2020-01-16"],
+   "created": "2020-08-14T21:03:04.923Z",
+   "name": "Example model",
+   "description": "Example custom language model",
+   "progress": 100,
+   "language": "en-US",
+   "updated": "2020-08-14T22:13:33.427Z",
+   "status": "available"
+}]}
+
+* Get a custom language model
+
+curl -X GET -u "apikey:$apikey" "$url/v1/customizations/$customization_id"
+
+{
+   "owner": "ba85aae8-3bc9-4da4-9b3f-e9b18d0198de",
+   "base_model_name": "en-US_BroadbandModel",
+   "customization_id": "ecdf5106-38c2-4103-afa6-c07f95a5f89a",
+   "dialect": "en-US",
+   "versions": ["en-US_BroadbandModel.v2020-01-16"],
+   "created": "2020-08-14T21:03:04.923Z",
+   "name": "Example model",
+   "description": "Example custom language model",
+   "progress": 100,
+   "language": "en-US",
+   "updated": "2020-08-14T22:13:33.427Z",
+   "status": "available"
+}
+
+
+
+
+
